@@ -8,8 +8,8 @@ on:
 
 env:
   DOCKER_REGISTRY: docker.io
-  IMAGE_NAME: akash294/akash-backend  # ✅ Changed from student_backend to student-backend
-  GKE_CLUSTER: akash-portal
+  IMAGE_NAME: akash294/akash-backend
+  GKE_CLUSTER: lost-and-found-cluster  # ✅ CHANGED from "akash-portal" to "lost-and-found-cluster"
   GKE_LOCATION: us-central1-a
   GCP_PROJECT: ku-gcp-hackathon
 
@@ -61,8 +61,8 @@ jobs:
 
     - name: Deploy to GKE
       run: |
-        kubectl set image deployment/akash-backend akash-backend=$IMAGE_NAME:$GITHUB_SHA  # ✅ Fixed deployment name
-        kubectl rollout status deployment/akash-backend  # ✅ Fixed deployment name
+        kubectl set image deployment/akash-backend akash-backend=$IMAGE_NAME:$GITHUB_SHA
+        kubectl rollout status deployment/akash-backend
         
     - name: Verify deployment
       run: |
