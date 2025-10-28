@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Items</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4a5568;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tbody tr:hover {
+            background-color: #e2e8f0;
+            transition: background-color 0.3s ease;
+        }
+        .claim-btn {
+            background: linear-gradient(45deg, #ffc107, #e0a800);
+            color: #333;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(255, 193, 7, 0.3);
+        }
+        .claim-btn:hover {
+            background: linear-gradient(45deg, #e0a800, #d39e00);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(255, 193, 7, 0.4);
+        }
+        .claimed {
+            color: #38a169;
+            font-weight: bold;
+        }
+        .not-claimed {
+            color: #e53e3e;
+            font-weight: bold;
+        }
+        .back-link {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            background: #667eea;
+            color: white;
+        }
+        .no-items {
+            text-align: center;
+            color: #718096;
+            font-size: 1.2em;
+            margin: 50px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>All Items</h1>
+        {% if items %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                    <th>Contact</th>
+                    <th>Claimed</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.type|title }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.location }}</td>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.contact }}</td>
+                    <td class="{% if item.get('claimed') %}claimed{% else %}not-claimed{% endif %}">
+                        {{ 'Yes' if item.get('claimed') else 'No' }}
+                    </td>
+                    <td>
+                        {% if not item.get('claimed') %}
+                        <form action="/items/{{ item.id }}/claim" method="post" style="display:inline;">
+                            <button type="submit" class="claim-btn">Claim</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-items">No items reported yet.</p>
+        {% endif %}
+        <div style="text-align: center;">
+            <a href="/" class="back-link">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = "ap-south-1"
+        ECR_REPO = "<ECR_REPO>" // replace
+        AWS_ACCOUNT_ID = "<AWS_ACCOUNT_ID>" // replace
+        IMAGE = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:latest"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t lostfound-app .'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh 'pytest app/'
+            }
+        }
+        stage('Authenticate & Tag') {
+            steps {
+                withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
+                                 string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh '''
+                    aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+                    aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+                    aws configure set default.region ${AWS_REGION}
+                    aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+                    docker tag lostfound-app:latest ${IMAGE}
+                    '''
+                }
+            }
+        }
+        stage('Push to ECR') {
+            steps {
+                sh 'docker push ${IMAGE}'
+            }
+        }
+        stage('Terraform Apply') {
+            steps {
+                dir('terraform') {
+                    withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
+                                     string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+                        sh '''
+                        export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+                        export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+                        terraform init -input=false
+                        terraform apply -auto-approve \
+                          -var "aws_account_id=${AWS_ACCOUNT_ID}" \
+                          -var "aws_region=${AWS_REGION}" \
+                          -var "ecr_repo=${ECR_REPO}"
+                        '''
+                    }
+                }
+            }
+        }
+    }
+    post {
+        failure {
+            mail to: 'team@example.com',
+                 subject: "Build Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+                 body: "Check Jenkins logs."
+        }
+    }
+}
