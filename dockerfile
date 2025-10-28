@@ -5,16 +5,13 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy requirements first to leverage Docker cache
-COPY app/requirements.txt .
+COPY ./app/requirements.txt .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the application code
-COPY app/ .
-
-# Copy static files if you have any
-COPY public/ ./public/
+COPY ./app/ .
 
 # Expose the port your app runs on (adjust if different)
 EXPOSE 5000
