@@ -1,7 +1,7 @@
 variable "gcp_project_id" {
   description = "GCP Project ID"
   type        = string
-  default     = "ku-gcp-hackathon"  # Set your default project ID
+  default     = "ku-gcp-hackathon"
 }
 
 variable "region" {
@@ -13,5 +13,17 @@ variable "region" {
 variable "cluster_name" {
   description = "GKE cluster name"
   type        = string
-  default     = "akash-portal"
+  default     = "lost-and-found-cluster"  # Unique name to avoid conflicts
+}
+
+variable "node_machine_type" {
+  description = "Machine type for GKE nodes"
+  type        = string
+  default     = "e2-standard-4"
+}
+
+variable "node_disk_size" {
+  description = "Disk size for GKE nodes in GB"
+  type        = number
+  default     = 50
 }

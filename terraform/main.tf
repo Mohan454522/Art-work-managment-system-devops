@@ -9,14 +9,14 @@ terraform {
 }
 
 provider "google" {
-  project = "ku-gcp-hackathon"
-  region  = "us-central1"
+  project = var.gcp_project_id
+  region  = var.region
 }
 
 # GKE Cluster with e2-standard-4 nodes
 resource "google_container_cluster" "alfavox_cluster" {
-  name               = "akash-portal"
-  location           = "us-central1-a"  # Single zone for cost efficiency
+  name               = var.cluster_name
+  location           = "${var.region}-a"  # Single zone for cost efficiency
   initial_node_count = 1                # Start with 1 node
   
   # Use default network
@@ -73,6 +73,13 @@ resource "google_container_cluster" "alfavox_cluster" {
   # Vertical Pod Autoscaling (recommended)
   vertical_pod_autoscaling {
     enabled = true
+  }
+
+  # Timeouts
+  timeouts {
+    create = "30m"
+    update = "30m"
+    delete = "30m"
   }
 }
 
