@@ -1,25 +1,17 @@
-variable "aws_region" {
-  type    = string
-  default = "ap-south-1"
-}
-
-variable "aws_account_id" {
-  type = string
-  description = "Your AWS account ID"
-}
-
-variable "ecr_repo" {
-  type = string
-  description = "ECR repository name"
-}
-
-variable "instance_type" {
-  type    = string
-  default = "t2.micro"
-}
-
-variable "key_name" {
+variable "gcp_project_id" {
+  description = "GCP Project ID"
   type        = string
-  description = "Existing AWS key pair name for SSH (optional)"
-  default     = ""
+  default     = "ku-gcp-hackathon"  # Set your default project ID
+}
+
+variable "region" {
+  description = "GCP region"
+  type        = string
+  default     = "us-central1"
+}
+
+variable "cluster_name" {
+  description = "GKE cluster name"
+  type        = string
+  default     = "student-portal"
 }
