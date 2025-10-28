@@ -1,14 +1,23 @@
-# Use Nginx as the base image
-FROM nginx:alpine
+# Use Python as the base image
+FROM python:3.9-slim
 
-# Copy the static files to the Nginx html directory
-COPY public/ /usr/share/nginx/html/
+# Set working directory
+WORKDIR /app
 
-# Copy custom Nginx configuration if needed (optional)
-# COPY nginx.conf /etc/nginx/nginx.conf
+# Copy requirements first to leverage Docker cache
+COPY app/requirements.txt .
 
-# Expose port 80
-EXPOSE 80
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Copy the application code
+COPY app/ .
+
+# Copy static files if you have any
+COPY public/ ./public/
+
+# Expose the port your app runs on (adjust if different)
+EXPOSE 5000
+
+# Command to run the application
+CMD ["python", "app.py"]
