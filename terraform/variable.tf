@@ -13,5 +13,5 @@ variable "region" {
 variable "cluster_name" {
   description = "GKE cluster name"
   type        = string
-  default     = "student-portal"
+  default     = "akash-portal"
 }
