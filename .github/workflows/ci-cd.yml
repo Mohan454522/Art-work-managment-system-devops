@@ -9,7 +9,7 @@ on:
 env:
   DOCKER_REGISTRY: docker.io
   IMAGE_NAME: akash294/akash-backend
-  GKE_CLUSTER: lost-and-found-cluster  # ✅ CHANGED from "akash-portal" to "lost-and-found-cluster"
+  GKE_CLUSTER: lost-and-found-cluster  
   GKE_LOCATION: us-central1-a
   GCP_PROJECT: ku-gcp-hackathon
 

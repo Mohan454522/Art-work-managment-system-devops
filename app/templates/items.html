@@ -5,101 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Artworks</title>
     <style>
-        body {
-            font-family: 'Helvetica Neue', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #34495e;
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 3em;
-            font-weight: 300;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 40px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        th, td {
-            padding: 18px;
-            text-align: left;
-            border-bottom: 1px solid #ecf0f1;
-        }
-        th {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
-            color: white;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        tbody tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tbody tr:hover {
-            background-color: #ecf0f1;
-            transition: background-color 0.3s ease;
-        }
-        .claim-btn {
-            background: linear-gradient(45deg, #f39c12, #e67e22);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(243, 156, 18, 0.3);
-        }
-        .claim-btn:hover {
-            background: linear-gradient(45deg, #e67e22, #d35400);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4);
-        }
-        .claimed {
-            color: #27ae60;
-            font-weight: bold;
-        }
-        .not-claimed {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-        .back-link {
-            display: inline-block;
-            color: #3498db;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 12px 25px;
-            border: 2px solid #3498db;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-        }
-        .back-link:hover {
-            background: #3498db;
-            color: white;
-        }
-        .no-items {
-            text-align: center;
-            color: #95a5a6;
-            font-size: 1.4em;
-            margin: 60px 0;
-        }
-    </style>
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(160deg, #f5f0e6, #e6d8c2);
+    color: #3a2f1d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2.8em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #3a2f1d;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.container {
+    max-width: 1100px;
+    width: 100%;
+    background: #fff8f0;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    overflow-x: auto; /* Allows horizontal scrolling if table is wide */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+    min-width: 800px; /* Ensures table doesn't shrink too small */
+    background: #fffdf9;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0d6c4;
+    vertical-align: middle;
+    word-break: break-word; /* Prevent text overflow */
+}
+
+th {
+    background: linear-gradient(45deg, #d6b48f, #a67c52);
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #fdf7ef;
+}
+
+tbody tr:hover {
+    background-color: #f5ead7;
+    transition: background-color 0.3s ease;
+}
+
+/* Artwork-style Claim Button */
+.claim-btn {
+    background: linear-gradient(145deg, #c99d6f, #b87a4b);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent button text wrapping */
+}
+
+.claim-btn:hover {
+    background: linear-gradient(145deg, #b87a4b, #a35f34);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+.claimed {
+    color: #38a169;
+    font-weight: bold;
+}
+
+.not-claimed {
+    color: #e53e3e;
+    font-weight: bold;
+}
+
+.back-link {
+    display: inline-block;
+    color: #8b5e3c;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 12px 25px;
+    border: 2px solid #8b5e3c;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.back-link:hover {
+    background: #8b5e3c;
+    color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.no-items {
+    text-align: center;
+    color: #7a5b3c;
+    font-size: 1.2em;
+    margin: 50px 0;
+}
+</style>
+
 </head>
 <body>
     <div class="container">
@@ -148,7 +176,3 @@
         {% endif %}
         <div style="text-align: center;">
             <a href="/" class="back-link">Back to Home</a>
-        </div>
-    </div>
-</body>
-</html>
