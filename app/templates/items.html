@@ -3,106 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Items</title>
+    <title>All Artworks</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Helvetica Neue', sans-serif;
             margin: 0;
             padding: 20px;
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
         h1 {
-            color: #4a5568;
+            color: #34495e;
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.5em;
+            margin-bottom: 40px;
+            font-size: 3em;
+            font-weight: 300;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 30px;
-            border-radius: 8px;
+            margin-bottom: 40px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         th, td {
-            padding: 15px;
+            padding: 18px;
             text-align: left;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid #ecf0f1;
         }
         th {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
             color: white;
-            font-weight: bold;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
         tbody tr:nth-child(even) {
-            background-color: #f8f9fa;
+            background-color: #f9f9f9;
         }
         tbody tr:hover {
-            background-color: #e2e8f0;
+            background-color: #ecf0f1;
             transition: background-color 0.3s ease;
         }
         .claim-btn {
-            background: linear-gradient(45deg, #ffc107, #e0a800);
-            color: #333;
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(255, 193, 7, 0.3);
+            box-shadow: 0 3px 10px rgba(243, 156, 18, 0.3);
         }
         .claim-btn:hover {
-            background: linear-gradient(45deg, #e0a800, #d39e00);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 10px rgba(255, 193, 7, 0.4);
+            background: linear-gradient(45deg, #e67e22, #d35400);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4);
         }
         .claimed {
-            color: #38a169;
+            color: #27ae60;
             font-weight: bold;
         }
         .not-claimed {
-            color: #e53e3e;
+            color: #e74c3c;
             font-weight: bold;
         }
         .back-link {
             display: inline-block;
-            color: #667eea;
+            color: #3498db;
             text-decoration: none;
             font-weight: bold;
-            padding: 10px 20px;
-            border: 2px solid #667eea;
-            border-radius: 25px;
+            padding: 12px 25px;
+            border: 2px solid #3498db;
+            border-radius: 30px;
             transition: all 0.3s ease;
         }
         .back-link:hover {
-            background: #667eea;
+            background: #3498db;
             color: white;
         }
         .no-items {
             text-align: center;
-            color: #718096;
-            font-size: 1.2em;
-            margin: 50px 0;
+            color: #95a5a6;
+            font-size: 1.4em;
+            margin: 60px 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>All Items</h1>
+        <h1>All Artworks</h1>
         {% if items %}
         <table>
             <thead>
@@ -143,7 +144,7 @@
             </tbody>
         </table>
         {% else %}
-        <p class="no-items">No items reported yet.</p>
+        <p class="no-items">No artworks reported yet.</p>
         {% endif %}
         <div style="text-align: center;">
             <a href="/" class="back-link">Back to Home</a>
